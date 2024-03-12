@@ -45,7 +45,7 @@ When you call `$input->getOption`, `$input->getArgument` will be called validati
 
 namespace App\Application\Command;
 
-use App\SymfonyConsoleInputValidation\Console\Input\InputOption as InputOptionValidation;
+use Danilovl\SymfonyConsoleInputValidation\Console\Input\InputOption as InputOptionValidation;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidOptionException;
@@ -60,25 +60,25 @@ class TestCommand extends Command
 {
     protected function configure(): void
     {
-        $this->getDefinition()->addOption(
-            new InputOptionValidation(
-                'type',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Encryption type.',
-                null,
-                ['encrypt', 'decrypt'],
-                static function (mixed $value): void {
-                    if (empty($value)) {
-                        return;
-                    }
-                
-                    if (!in_array($value, ['encrypt', 'decrypt'])) {
-                        throw new InvalidOptionException(sprintf('"%s" is not a valid type.', $value));
-                    }
-                }
-            )
+        $validation = static function (mixed $value): void {
+            if (empty($value)) {
+                return;
+            }
+
+            if (!in_array($value, ['encrypt', 'decrypt'])) {
+                throw new InvalidOptionException(sprintf('"%s" is not a valid type.', $value));
+            }
+        };
+
+        $inputOption = new InputOptionValidation(
+            name: 'type',
+            mode: InputOption::VALUE_REQUIRED,
+            description: 'Encryption type.',
+            suggestedValues: ['encrypt', 'decrypt'],
+            validation: $validation
         );
+
+        $this->getDefinition()->addOption($inputOption);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -92,4 +92,4 @@ class TestCommand extends Command
 
 ## License
 
-The symfony console input validation package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The symfony-console-input-validation package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
