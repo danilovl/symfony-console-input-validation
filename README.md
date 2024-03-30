@@ -19,7 +19,7 @@ Provide a simple method for adding input validation to Symfony console commands.
 Install `danilovl/symfony-console-input-validation` package by Composer:
 
 ``` bash
-$ composer require danilovl/symfony-console-input-validation
+composer require danilovl/symfony-console-input-validation
 ```
 
 ### 2. Configuration
