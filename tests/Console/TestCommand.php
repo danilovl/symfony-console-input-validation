@@ -27,7 +27,7 @@ class TestCommand extends Command
                 'Encryption type.',
                 null,
                 ['encrypt', 'decrypt'],
-                static function (mixed $value): void {
+                static function (string $value): void {
                     if (empty($value)) {
                         return;
                     }

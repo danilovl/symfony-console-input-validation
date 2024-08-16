@@ -17,23 +17,28 @@ class ApplicationTest extends TestCase
         $application = new SymfonyApplication;
         $application->add(new TestCommand);
         $command = $application->find(TestCommand::COMMAND_NAME);
+        /** @var string $commandName */
+        $commandName = $command->getName();
 
+        /** @param array<string>|null $outputParameters */
         $outputParameters = [
-            $command->getName(),
+            $commandName,
             '--type=encrypt'
         ];
         $status = $command->run(new ArgvInput($outputParameters), new NullOutput);
         $this->assertEquals(Command::SUCCESS, $status);
 
+        /** @param array<string>|null $outputParameters */
         $outputParameters = [
-            $command->getName(),
+            $commandName,
             '--type=decrypt'
         ];
         $status = $command->run(new ArgvInput($outputParameters), new NullOutput);
         $this->assertEquals(Command::SUCCESS, $status);
 
+        /** @param array<string>|null $outputParameters */
         $outputParameters = [
-            'command' => $command->getName(),
+            $commandName,
             '--type=error'
         ];
 
