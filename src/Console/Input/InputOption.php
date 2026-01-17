@@ -3,9 +3,19 @@
 namespace Danilovl\SymfonyConsoleInputValidation\Console\Input;
 
 use Closure;
+use Symfony\Component\Console\Completion\{
+    Suggestion,
+    CompletionInput,
+    CompletionSuggestions
+};
 
 class InputOption extends \Symfony\Component\Console\Input\InputOption
 {
+    /**
+     * @param string|array<mixed>|null $shortcut
+     * @param string|bool|int|float|array<mixed>|null $default
+     * @param array<mixed>|Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues
+     */
     public function __construct(
         string $name,
         array|string|null $shortcut = null,

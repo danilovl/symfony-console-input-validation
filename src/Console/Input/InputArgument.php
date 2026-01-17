@@ -3,9 +3,18 @@
 namespace Danilovl\SymfonyConsoleInputValidation\Console\Input;
 
 use Closure;
+use Symfony\Component\Console\Completion\{
+    Suggestion,
+    CompletionInput,
+    CompletionSuggestions
+};
 
 class InputArgument extends \Symfony\Component\Console\Input\InputArgument
 {
+    /**
+     * @param string|bool|int|float|array<mixed>|null $default
+     * @param array<mixed>|Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues
+     */
     public function __construct(
         string $name,
         ?int $mode = null,

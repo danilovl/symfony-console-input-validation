@@ -15,7 +15,7 @@ class ApplicationTest extends TestCase
     public function testApplication(): void
     {
         $application = new SymfonyApplication;
-        $application->add(new TestCommand);
+        $application->addCommand(new TestCommand);
         $command = $application->find(TestCommand::COMMAND_NAME);
         /** @var string $commandName */
         $commandName = $command->getName();
@@ -49,7 +49,7 @@ class ApplicationTest extends TestCase
     public function testSymfonyApplication(): void
     {
         $application = new SymfonyApplication;
-        $application->add(new TestCommand);
+        $application->addCommand(new TestCommand);
 
         $command = $application->find(TestCommand::COMMAND_NAME);
         $commandTester = new CommandTester($command);
